@@ -1,0 +1,24 @@
+1.2.1
+Discuss the content of an application that requires algorithmic content.
+Ans: send some advertisements to the potential customers, so we need to filter the robot users firstly(we don't want to waste limited post). It involves fetching some tweets of the twitter users(probably using breadth-first search algorithm), judge whether the user is a robot(building some robot-words dataset;using string matching algorithms to filter, or build a bayes or svm classifier through finding some distinguishable features). 
+
+
+1.2.2
+Find out which values n does insertion sort beat merge sort, when insertion runs in 8n^2 steps, merge runs in 64nlgn steps.
+Ans: 8n^2 < 64nlgn
+  => n < 8lgn
+  => n/lgn < 8, 
+then we can guess, when n=16, n/lgn=4; when n=32, n/lgn=32/5; when n=64, n/lgn=32/3;
+so n < 64; 
+Using the calculator, we get 1 < n < 44;
+
+
+1.2.3
+Find out the smallest value of n which makes 100n^2 steps is smaller than 2^n steps with running on the same machine.
+Ans: 100n^2 < 2^n
+  => lg100n^2 < n
+  => lg100 + 2lgn < n
+because n-lg100 > 2lgn > 0, so n > lg100 > 6, 6 < lg100 < 7;
+then we can guess, when n=8, 2lgn=6, not works; when n=16, 2lgn=4, it works;
+Thus, n < 16; Using the calculator, we get min(n) = 15;
+
