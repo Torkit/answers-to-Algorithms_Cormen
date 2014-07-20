@@ -1,0 +1,39 @@
+2.1.1
+Illustrate the operaion of INSERTION-SORT on the array A={31,41,59,26,41,58}.
+Ans:
+   (a)31,41,59,26,41,58 
+=> (b)31,41,59,26,41,58, because 31<41, no move
+=> (c)31,41,59,26,41,58, because 41<59, no move
+=> (d)26,31,41,59,41,58, because 26<31, 26 moves to 1st, 31/41/59 moves backword in 1 step.
+=> (e)26,31,41,41,59,58
+=> (f)26,31,41,41,58,59
+
+
+2.1.2
+Rewriting the INSERTION-SORT in nonincreasing order.
+Ans:
+(Pseudocode)
+for j <- 2 to length[A]
+     do key <- A[j]
+	// insert A[j] into the sorted array A[1..j-1]
+	i <- j-1
+	while i >0 and A[i] < key
+	    do A[i+1] <- A[i]
+		i <- i-1
+	A[i+1] <- key
+(java)
+public static void InsertionSort(int[] A) {
+        //sort into nonincreasing order
+        System.out.println("Before sort: " + Arrays.toString(A));
+        int n = A.length;
+        for (int j = 1; j < n; j++) {
+            int key = A[j];
+            int i = j-1;
+            while (i >= 0 && A[i] < key) {
+                A[i+1] = A[i];
+                i--;
+            }
+            A[i+1] = key;
+        }
+        System.out.println("After sort: " + Arrays.toString(A));
+    }
