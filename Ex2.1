@@ -37,3 +37,54 @@ public static void InsertionSort(int[] A) {
         }
         System.out.println("After sort: " + Arrays.toString(A));
     }
+
+
+2.1.3
+Write pseudocode for linear search, which scans through the sequence A={a1,...,an},looking for v. Return index i such that v=A[i] or the special value NIL if v does not appear in A.
+Ans:
+Linear-Search(A, v)
+  for j <- 1 to Length(A)
+	if A[j] == v
+		return j
+  //v does not appear in A
+  return NIL
+
+
+2.1.4
+Adding two n-bit binary integers, stored in two n-element arrays A and B. The sum should be stored in binary form in an (n+1)-element array C.
+Ans:
+We suppose n-bit binary integer like 100011101, store in array from index 0 to index 8.
+Then we scan these two array from right to left, because we need to process carry bit.
+(pseudocode)
+AddBinaryInteger(A, B, C)
+  // store the value of carry bit
+  do carry <- 0
+
+     for i <- length[A] to 1
+	do sum <- A[i]+B[i]+carry
+	   carry <- sum / 2;
+	   sum   <- sum mod 2;
+	   C[i+1] <- sum
+     
+     C[1] <- carry
+
+(java)
+public static void addBinaryInteger(int[] A, int[] B, int[] C) {
+        int n = A.length;
+        int carry = 0;
+        for (int i = n-1; i >=0; i--) {
+            int sum = A[i]+B[i]+carry;
+            carry = sum / 2;
+            sum = sum % 2;
+            C[i+1] = sum;
+        }
+        C[0] = carry;
+        System.out.println("add "+Arrays.toString(A) + " + "+Arrays.toString(B) + " = " + Arrays.toString(C) );
+    }
+
+    public static void testAddBinaryInteger() {
+        int[] A = {1,0,0,1,1,0,1};
+        int[] B = {1,1,0,1,0,1,0};
+        int[] C = new int[A.length+1];
+        addBinaryInteger(A, B, C);
+    }
