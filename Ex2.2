@@ -1,0 +1,31 @@
+2.2.1
+Express the function n^3/1000 -100n^2 -100n+3
+Ans: the highest-order term is n^3/1000, and the other lower-order terms are far insignificant for large n, so O-notation is O(n^3).
+
+
+2.2.2
+Write pseudocode for the selection sort, which first finds the smallest element and exchanges it with the element A[1], then find the second smallest element and exchanges it with the element A[2]; continue this mannner for the first n-1 elements of A.
+Ans:
+(1)Selection-Sort(A)
+for i <- 1 to Length(A)-1
+  do    minI <- i    // the smallest element index, the default value is i
+	for j <- i+1 to Length(A)
+	  do if A[j] < A[minI]
+		then minI <- j
+	
+	// exchange the element A[i] with the element A[minI]
+	if i != minI
+	  then do  key <- A[i]
+		   A[i] <- A[minI]
+		   A[minI] <- key
+	
+(2)loop invariant is A[1..i-1], it consists of the top i-1 smallest elements and is sorted in nondecreasing order. After each iterator, this subarray is still sorted in order.
+
+(3)after run for the first n-1 elements, then we have found the top n-1 smallest elements, and A[n] is the largest element, we don't need to do any operation.
+
+(4)the running time T(n) = c1(n-1) + c2(n-1)n/2 + c3(n-1);
+when the array is originally sorted in nondecreasing order, it is the best-case, then 
+T(n) = (n-1) + (n-1)n/2 ~ O(n^2);
+when the array is originally sorted in nonincreasing order, it is the worse-case, then
+T(n) = (n-1) + 2(n-1)n/2 + 4(n-1) ~ O(n^2)
+Thus, the best-case and worse-case is the same, O(n^2).
