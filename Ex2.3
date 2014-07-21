@@ -1,0 +1,106 @@
+2.3.1
+Illustrate the operation of merge sort on the array A = {3, 41, 52, 26, 38, 57, 9, 49}.
+Ans:
+	{3, 41, 52, 26, 38, 57, 9, 49}
+   =>   {3,41,  26,52,  38,57, 9,49}
+   =>   {3,26,41,52,    9,38,49,57}
+   =>   {3, 9, 26, 38, 41, 49, 52, 57}    
+
+
+2.3.2
+Rewrite the MERGE procedure so that it doesn't use sentinels, instead stopping once either array L or 
+R has had all the elements copied back to A and then copying the remainder of the other array back into A.
+Ans:
+MERGE(A, p, q, r)
+  n1 <- q-p+1
+  n2 <- r-q
+  create new array L[n1+1] and R[n2+1]
+  
+  for i <- 1 to n1
+	L[i] <- A[p+i-1]
+  for j <- 1 to n2
+  	R[j] <- A[q+j]
+
+  //merge L and R to A
+  i <- 1
+  j <- 1
+  k <- 1
+  while i <= n1 and j <= n2
+	do if L[i] < R[j]
+		then  A[k] <- L[i]
+		      i <- i+1
+	   	else
+		      A[k] <- R[j]
+		      j <- j+1
+	   k <- k+1
+
+  //copy the remainder of the other array
+  while i <= n1
+	do A[k] <- L[i]
+	   i <- i+1
+	   k <- k+1
+  
+  while j <= n2
+	do A[k] <- R[j]
+	   j <- j+1
+ 	   k <- k+1
+
+
+
+2.3.3
+Use mathematical induction to show that when n is an exact power of 2, 
+T(n) = {2, if n=2;    2T(n/2)+n, if n=2^k, for k > 1},
+then the soluction of recurrence T(n) = nlgn
+Ans:
+(1)Initial Step. 
+When n = 2, T(n) = nlgn = 2lg2 = 2, which is clearly true. 
+(2)Inductive Step. 
+We assume there is a m such that T(m) = mlgm (m = 2^l, l>1, this is the inductive assumption.)
+So we must prove, for the same m, T(t) = tlgt(t = 2^(l+1), l>1).
+This is not too hard: 
+  T(t) 	= 2T(t/2) + t
+	= 2T(2^l) + t
+	= 2T(m) + t
+	= 2mlgm + 2m
+	= 2m(lgm + lg2)
+	= 2mlg2m
+	= tlgt
+Thus we prove the following assertion: "if there is a m such that T(m) is ture, then T(2m) is still true". 
+
+
+
+
+2.3.4
+Insertion sort can be expressed as a recursive procedure as follows. In order to sort A[1..n], 
+we recursively sort A[1..n-1] and then insert A[n] into the sorted array A[1..n-1]. Write a
+recurrence for the running time of this recursive version of insertion sort.
+Ans:
+(pseudocode for recursive insertion sort)
+Insertion-Sort(A)
+
+  
+
+
+
+2.3.5
+Write the pseudocode for the Binary Search, either iterative or recursive. Argue that the worse-case running time of binary search is O(lgn)
+
+
+
+
+2.3.6
+Can we use a binary search to replace the linear search to scan(backward) through the sorted subarray A[1..j-1], to improve the overall worst-case running time of insertion sort to O(nlgn)?
+
+
+
+2.3.7
+Describe a O(nlgn)-time algorithm that, given a set S of n integers and another integer x, 
+determines whether or not there exist two elements in S whose sum is exactly x.
+
+
+
+
+
+
+
+
