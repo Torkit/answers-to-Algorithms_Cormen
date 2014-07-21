@@ -1,90 +1,80 @@
-2.1.1
-Illustrate the operaion of INSERTION-SORT on the array A={31,41,59,26,41,58}.
+2.2.1
+Express the function n^3/1000 - 100n^2 - 100n + 3 in terms of O-notaion.
+Ans: the highest-order term is n^3/1000, and the other lower-order terms are far insignificant for large n, so O-notation is O(n^3).
+
+
+2.2.2
+Write pseudocode for the selection sort, which first finds the smallest element and exchanges it with the element A[1], then find the second smallest element and exchanges it with the element A[2]; continue this mannner for the first n-1 elements of A.
 Ans:
-   (a)31,41,59,26,41,58 
-=> (b)31,41,59,26,41,58, because 31<41, no move
-=> (c)31,41,59,26,41,58, because 41<59, no move
-=> (d)26,31,41,59,41,58, because 26<31, 26 moves to 1st, 31/41/59 moves backword in 1 step.
-=> (e)26,31,41,41,59,58
-=> (f)26,31,41,41,58,59
+(1)Selection-Sort(A)
+for i <- 1 to Length(A)-1
+  do    minI <- i    // the smallest element index, the default value is i
+	for j <- i+1 to Length(A)
+	  do if A[j] < A[minI]
+		then minI <- j
+	
+	// exchange the element A[i] with the element A[minI]
+	if i != minI
+	  then do  key <- A[i]
+		   A[i] <- A[minI]
+		   A[minI] <- key
+	
+(2)loop invariant is A[1..i-1], it consists of the top i-1 smallest elements and is sorted in nondecreasing order. After each iterator, this subarray is still sorted in order.
+
+(3)after run for the first n-1 elements, then we have found the top n-1 smallest elements, and A[n] is the largest element, we don't need to do any operation.
+
+(4)the running time T(n) = c1(n-1) + c2(n-1)n/2 + c3(n-1);
+when the array is originally sorted in nondecreasing order, it is the best-case, then 
+T(n) = (n-1) + (n-1)n/2 ~ O(n^2);
+when the array is originally sorted in nonincreasing order, it is the worse-case, then
+T(n) = (n-1) + 2(n-1)n/2 + 4(n-1) ~ O(n^2)
+Thus, the best-case and worse-case is the same, O(n^2).
 
 
-2.1.2
-Rewriting the INSERTION-SORT in nonincreasing order.
+2.2.3
+Consider linear search(Ex2.1.3). How many elements of the sequence need to be checked on the average. How about in the worse case? What are the average-case and worse-case running times in O-notation?
 Ans:
-(Pseudocode)
-for j <- 2 to length[A]
-     do key <- A[j]
-	// insert A[j] into the sorted array A[1..j-1]
-	i <- j-1
-	while i >0 and A[i] < key
-	    do A[i+1] <- A[i]
-		i <- i-1
-	A[i+1] <- key
-(java)
-public static void InsertionSort(int[] A) {
-        //sort into nonincreasing order
-        System.out.println("Before sort: " + Arrays.toString(A));
-        int n = A.length;
-        for (int j = 1; j < n; j++) {
-            int key = A[j];
-            int i = j-1;
-            while (i >= 0 && A[i] < key) {
-                A[i+1] = A[i];
-                i--;
-            }
-            A[i+1] = key;
-        }
-        System.out.println("After sort: " + Arrays.toString(A));
-    }
+(1)if v is the first element, then only checks 1 element; if v is the A[i] element, then checks i elements.
+So the average elements needed to be checked is : (1+2...+n)/n = (n+1)/2
+The worse case is v does not appear in A, it needs to check n elements.
+
+(2)the highest-order term is n in average-case and worse-case, so running times is O(n)
 
 
-2.1.3
-Write pseudocode for linear search, which scans through the sequence A={a1,...,an},looking for v. Return index i such that v=A[i] or the special value NIL if v does not appear in A.
+2.2.4
+How can we modify almost any algorithm to have a good best-case running time?
 Ans:
-Linear-Search(A, v)
-  for j <- 1 to Length(A)
-	if A[j] == v
-		return j
-  //v does not appear in A
-  return NIL
+The first part of any algorithm is check whether the input is what we need. 
+if it does, then we don't need to do any operation, return the input directly.
+In this case, we have the base-case running time. Otherwise, we continue to run 
+the originall algorithm.
+For instance, in selection-sort, we first scan the input sequence and check whether the array is sorted. If it does, the running time is O(n).
+(new pseudocode):
+Selection-Sort(A)
+sorted <- true
+for i <- 1 to Length(A)-1
+  do if A[i] > A[i+1]
+	then sorted = false
+	     break
+if sorted == true   //input is in good ordered,
+  return
+
+for i <- 1 to Length(A)-1
+  do    minI <- i    // the smallest element index, the default value is i
+	for j <- i+1 to Length(A)
+	  do if A[j] < A[minI]
+		then minI <- j
+	
+	// exchange the element A[i] with the element A[minI]
+	if i != minI
+	  then do  key <- A[i]
+		   A[i] <- A[minI]
+		   A[minI] <- key
 
 
-2.1.4
-Adding two n-bit binary integers, stored in two n-element arrays A and B. The sum should be stored in binary form in an (n+1)-element array C.
-Ans:
-We suppose n-bit binary integer like 100011101, store in array from index 0 to index 8.
-Then we scan these two array from right to left, because we need to process carry bit.
-(pseudocode)
-AddBinaryInteger(A, B, C)
-  // store the value of carry bit
-  do carry <- 0
 
-     for i <- length[A] to 1
-	do sum <- A[i]+B[i]+carry
-	   carry <- sum / 2;
-	   sum   <- sum mod 2;
-	   C[i+1] <- sum
-     
-     C[1] <- carry
 
-(java)
-public static void addBinaryInteger(int[] A, int[] B, int[] C) {
-        int n = A.length;
-        int carry = 0;
-        for (int i = n-1; i >=0; i--) {
-            int sum = A[i]+B[i]+carry;
-            carry = sum / 2;
-            sum = sum % 2;
-            C[i+1] = sum;
-        }
-        C[0] = carry;
-        System.out.println("add "+Arrays.toString(A) + " + "+Arrays.toString(B) + " = " + Arrays.toString(C) );
-    }
 
-    public static void testAddBinaryInteger() {
-        int[] A = {1,0,0,1,1,0,1};
-        int[] B = {1,1,0,1,0,1,0};
-        int[] C = new int[A.length+1];
-        addBinaryInteger(A, B, C);
-    }
+
+
+
