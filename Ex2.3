@@ -75,30 +75,115 @@ Insertion sort can be expressed as a recursive procedure as follows. In order to
 we recursively sort A[1..n-1] and then insert A[n] into the sorted array A[1..n-1]. Write a
 recurrence for the running time of this recursive version of insertion sort.
 Ans:
-(pseudocode for recursive insertion sort)
-Insertion-Sort(A)
+(1)(pseudocode for recursive insertion sort)
+Insertion-Sort(A, p)
+  if p > 1
+	then Insertion-Sort(A, p-1)
+	     Insert(A, p)
 
-  
+Insert(A, p)
+  key <- A[p]
+  i <- p-1
+  while i > 0 and A[i] > key
+	do A[i+1] <- A[i]
+	   i <- i-1
+  A[i+1] <- key
+(java)
+public static void recurInsertionSort(int[] A, int p) {
+        if (p > 0) {
+            recurInsertionSort(A, p-1);
+            Insert(A, p);
+        }
+    }
+
+    public static void Insert(int[] A, int p) {
+        int key = A[p];
+        int i = p - 1;
+        while (i >= 0 && A[i] > key) {
+            A[i+1] = A[i];
+            i--;
+        }
+        A[i+1] = key;
+    }
+
+(2)the recurrence of Insertion-Sort, T(n) = {T(n-1)+O(n), n>1; O(1), n=1},
+Using induction, we get T(n) = n(n-1)/2.
+
 
 
 
 2.3.5
 Write the pseudocode for the Binary Search, either iterative or recursive. Argue that the worse-case running time of binary search is O(lgn)
+Ans:
+(1)iterative
+Binary-Search(A, v)
+  r <- length[A]
+  l <- 1
+  while l <= r
+	do m <- (l+r)/2
+	if A[m] == v
+	  then	return m
+ 	if A[m] < v
+	  then l <- m+1
+	  else r <- m-1
+
+(recursive)
+Binary-Search(A, v, l, r)
+  if l > r
+	then return NIL
+
+  m <- (l+r)/2
+  if A[m] == v
+	then return m
+
+  if A[m] < v
+	then Binary-Search(A, v, m+1, r)
+	else Binary-Search(A, v, l, m-1)
+(java)
+ public static int BinarySearch(int[] A, int v) {
+        int r = A.length-1;
+        int l = 0;
+        while (l <= r) {
+            int m = (l+r)/2;
+            if (A[m] == v)
+                return m;
+            if (A[m] < v)
+                l = m+1;
+            else
+                r = m-1;
+        }
+        return -1;
+    }
+
+    public static void testBinarySearch() {
+        int[] A = {1, 5, 7, 8, 10, 13};
+        int v = 9;
+        System.out.println(BinarySearch(A, v));
+    }
+(2)
+the recurrsion of Binary-Search, T(n) = T(n/2) + O(1), then T(n) = lgn.
+The worse-case happens when v does not appear in A, it needs to search (lgn+1) times. Thus the worse-case running time is O(lgn).
 
 
 
 
 2.3.6
 Can we use a binary search to replace the linear search to scan(backward) through the sorted subarray A[1..j-1], to improve the overall worst-case running time of insertion sort to O(nlgn)?
+Ans:
+(new pseudocode for InsertionBinarySort)
+InsertionBinarySort(A)
+  for j <- 2 to Length(A)
+	do l <- 1
+	   r <- j-1
+	   //we want to find the index which A[index] <= A[j] < A[index+1]  
+
+
 
 
 
 2.3.7
 Describe a O(nlgn)-time algorithm that, given a set S of n integers and another integer x, 
 determines whether or not there exist two elements in S whose sum is exactly x.
-
-
-
 
 
 
