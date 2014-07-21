@@ -13,27 +13,29 @@ Ans:
 Rewriting the INSERTION-SORT in nonincreasing order.
 Ans:
 (Pseudocode)
-for j <- 2 to length[A]
- do key <- A[j]
- // insert A[j] into the sorted array A[1..j-1]
- i <- j-1
- while i >0 and A[i] < key
- do A[i+1] <- A[i]
- i <- i-1
- A[i+1] <- key
+INSERTION-SORT(A)
+  for j <- 2 to length[A]
+    do key <- A[j]
+    // insert A[j] into the sorted array A[1..j-1]
+    i <- j-1
+    while i >0 and A[i] < key
+      do A[i+1] <- A[i]
+      i <- i-1
+    A[i+1] <- key
+
 (java)
 public static void InsertionSort(int[] A) {
  //sort into nonincreasing order
  System.out.println("Before sort: " + Arrays.toString(A));
  int n = A.length;
  for (int j = 1; j < n; j++) {
- int key = A[j];
- int i = j-1;
- while (i >= 0 && A[i] < key) {
- A[i+1] = A[i];
- i--;
- }
- A[i+1] = key;
+   int key = A[j];
+   int i = j-1;
+   while (i >= 0 && A[i] < key) {
+     A[i+1] = A[i];
+     i--;
+   }
+   A[i+1] = key;
  }
  System.out.println("After sort: " + Arrays.toString(A));
  }
@@ -44,8 +46,9 @@ Write pseudocode for linear search, which scans through the sequence A={a1,...,a
 Ans:
 Linear-Search(A, v)
  for j <- 1 to Length(A)
- if A[j] == v
- return j
+   if A[j] == v
+   return j
+ 
  //v does not appear in A
  return NIL
 
@@ -58,13 +61,13 @@ Then we scan these two array from right to left, because we need to process carr
 (pseudocode)
 AddBinaryInteger(A, B, C)
  // store the value of carry bit
- do carry <- 0
+ carry <- 0
 
  for i <- length[A] to 1
- do sum <- A[i]+B[i]+carry
- carry <- sum / 2;
- sum <- sum mod 2;
- C[i+1] <- sum
+   do sum <- A[i]+B[i]+carry
+   carry <- sum / 2;
+   sum <- sum mod 2;
+   C[i+1] <- sum
 
  C[1] <- carry
 
@@ -73,10 +76,10 @@ public static void addBinaryInteger(int[] A, int[] B, int[] C) {
  int n = A.length;
  int carry = 0;
  for (int i = n-1; i >=0; i--) {
- int sum = A[i]+B[i]+carry;
- carry = sum / 2;
- sum = sum % 2;
- C[i+1] = sum;
+   int sum = A[i]+B[i]+carry;
+   carry = sum / 2;
+   sum = sum % 2;
+   C[i+1] = sum;
  }
  C[0] = carry;
  System.out.println("add "+Arrays.toString(A) + " + "+Arrays.toString(B) + " = " + Arrays.toString(C) );
