@@ -170,20 +170,66 @@ The worse-case happens when v does not appear in A, it needs to search (lgn+1) t
 2.3.6
 Can we use a binary search to replace the linear search to scan(backward) through the sorted subarray A[1..j-1], to improve the overall worst-case running time of insertion sort to O(nlgn)?
 Ans:
-(new pseudocode for InsertionBinarySort)
+(1)(pseudocode for InsertionBinarySort)
 InsertionBinarySort(A)
   for j <- 2 to Length(A)
 	do key <- A[j]
 	   l <- 1
 	   r <- j-1
 	   //we want to find the index which A[index] < A[j] <= A[index+1]
-	   idx <- -1  
+	   idx <- j  //default postion
 	   while l <= r
 		do m <- (l+r)/2
 		   if A[m] == key
 			then idx = m
-			     break
-		   if A[m] < A[j]  
+			break
+		   if A[m] < A[j]
+			then l <- m+1
+			     idx <- l    //potential postion
+			else r <- m-1
+			     idx <- m    //potential postion
+
+	   //move idx..j-1 of items to idx+1..j
+	   i <- j-1
+	   while i >= idx
+		A[i+1] <- A[i]
+		i <- i-1
+	   A[idx] <- key
+
+(java)
+public static void InsertionBinarySort(int[] A) {
+        int n = A.length;
+        for (int j = 1; j < n; j++) {
+            int key = A[j];
+            int l = 0, r = j-1;
+            int idx = j;   //default position
+            while (l <= r) {
+                int m = (l+r)/2;
+                if (A[m] == key) {
+                    idx = m;
+                    break;
+                }
+                else if (A[m] < key) {
+                    l = m + 1;
+                    idx = l;   //potential position
+                }
+                else {
+                    r = m - 1;
+                    idx = m;   //potential position
+                }
+            }
+            int i = j-1;
+            while (i >= idx) {
+                A[i+1] = A[i];
+                i--;
+            }
+            A[idx] = key;
+        }
+    }   
+(2)Though we use binary search to find exact positionfor A[j], we still insert A[j] to the exact position. Then when in the
+worse-case, the sequence A is in non-increasing order, the running time 
+T(n) = 1+...+n-1 + lg1+...+lg(n-1)+O(n) = n(n-1)/2 + O(nlgn) + O(n), because lg(n!) = O(nlgn).
+Thus the running time is still O(n^2). 
 
 
 
