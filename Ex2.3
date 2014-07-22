@@ -173,9 +173,17 @@ Ans:
 (new pseudocode for InsertionBinarySort)
 InsertionBinarySort(A)
   for j <- 2 to Length(A)
-	do l <- 1
+	do key <- A[j]
+	   l <- 1
 	   r <- j-1
-	   //we want to find the index which A[index] <= A[j] < A[index+1]  
+	   //we want to find the index which A[index] < A[j] <= A[index+1]
+	   idx <- -1  
+	   while l <= r
+		do m <- (l+r)/2
+		   if A[m] == key
+			then idx = m
+			     break
+		   if A[m] < A[j]  
 
 
 
