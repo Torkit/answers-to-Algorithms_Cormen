@@ -238,8 +238,22 @@ Thus the running time is still O(n^2).
 2.3.7
 Describe a O(nlgn)-time algorithm that, given a set S of n integers and another integer x, 
 determines whether or not there exist two elements in S whose sum is exactly x.
+Ans:
+We first sort the set in nondecreasing order by merge-sort, then iterate each element i in S, perform a binary search
+to see if there exists a element of x-i in S, we found two elements whose sum is exactly x.
+(pseudocode)
+Set-Pair(S, x)
+  A = Merge-Sort(S)
+  
+  for i = 1 to Length[A]
+	if Binary-Search(A, x-A[i]) != NIL
+		return true
+  return false
 
-
+Because Merge-Sort running-time is O(nlgn), Binary-Search running-time is (lgn), So
+T(n) is still O(nlgn).
+Another issue, if x = i+i, and only one i exists in S, i think we should return false; 
+or we should figure out whether S could contains two same value. 
 
 
 
