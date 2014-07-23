@@ -18,3 +18,36 @@ Merge-Sublists(A, n, k, p, r)
 	Merge(A, p, r)
 	
 	
+Following the merge-sort analysis, T(m) = {2T(m/2) + O(mk), m > 1;  0, m = 1}, and O(mk) is the running time of merging m sublists, each of length k.
+We guess T(m) = mklgm.
+Using induction, 
+Base: T(1) = klg1 = 0, true.
+Step: Suppose T(l) = lklgl, then 
+ T(2l) 	= 2T(l) + O(2lk) 
+      	= 2lklgl + O(2lk) 
+  	= 2lk(lgl + O(1))
+	= 2lk(lgl + O(lg2))
+	= 2lklg2l
+So we prove T(2l) = 2lklg2l.
+And m = n/k, so the worst-case time is O(nlg(n/k)).
+
+
+
+c.The modified algorithm runs in O(nk+nlg(n/k)) worst-case time, what is the largest asymptotic
+value of k as a function of n for which the modified algorithm has the same asymptotic running 
+time as standard merge sort?
+Ans:
+We know, when k = 1, there are n sublists, it is the same as merge-sort; 
+when k = n, only 1 sublist, it is the same as insertion-sort.
+Normally O(nlgn) <= O(nk + nlg(n/k)), 
+ =>	O(nk) <= O(nlgn) < O(nk+nlg(n/k)), k > 1
+ => 	k <= lgn
+Then we substitute lgn for, O(nk+nlg(n/k) = O(nlgn + nlg(n/lgn)) = O(nlgn).
+if k > lgn, then O(nk) > O(nlgn), which is larger than running time of merge-sort.
+
+
+
+d. How should k be chosen in practice?
+Like Ex1.2-2, we need to know the constant factors of merge-sort and insertion-sort, then we can
+pick the number of k, which makes insertion-sort beat merge-sort.
+
