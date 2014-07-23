@@ -1,0 +1,41 @@
+Ch2_Pro2-2
+BubbleSort(A)
+  for i = 1 to Length[A]
+	for j = Length[A] to i+1
+		if A[j] < A[j-1]
+			exchange A[j] <-> A[j-1]
+
+a.A' donote the output of BubbleSort(A). To prove that BubbleSort is correct, we need to prove that
+it terminates and that (2.3)A'[1] <= A'[2] <= ... <= A'[n],
+What else must be proved to show that BubbleSort actually sorts?
+Ans:
+Line 2-4 is a loop invariant, so besides the elements of A' is sorted, we need to show that the elements 
+of A' are all from A but probably in different order.
+
+
+b.State precisely a loop invariant for the for loop in lines 2-4, and prove that this loop invariant holds.
+Ans:
+loop invariant: At the start of each iteration of the for loop of lines 2-4, the subarray A[j..] consists
+		of the elements originally in A, and A[j] is the smallest elements in A[j..].
+  .Initialization: Before the first loop iteration, when j = length[A], A[j..] consists of only one 
+		element and it is the last element of A, so the loop invariant holds trivially.
+  .Maintenance: On each iteration, we replace A[j] with A[j-1] if A[j] is smaller. After swapping, 
+		A[j-1] is the smallest of A[j] and A[j-1]. 
+
+
+
+
+c.
+Ans:
+loop invariant: At the start of each iteration of the for loop of lines 2-4, the subarray A[1..i-1]
+consists of the i-1 smallest elements originally in A, in sorted order. 
+  . Initialization: We start by showing that the loop invariant holds before the first loop iteration,
+	when i = 1. The subarray[1..0], therefore, consists of 0 element. So it is sorted(trivially) and 
+	originally from A, which shows that the loop invariant holds prior to the first iteration of the loop.
+  . Maintenance: Next, we tackle the second property: showing that each iteration maintains the loop 
+	invariant. Informally, when i=1, the inner loop searchs the smallest element in A[i..n] by backward exchange, 
+	when j=n, after exchange, A[n-1] <= A[n]; j=n-1, after exchange, A[n-2] <= {A[n-1,A[n}; after n-i exchanges,
+	the smallest element in A[i..n] will swap into A[i]. Then we get A[1..i-1] <= A[i] <= A[i+1..n].
+	After the inner loop iteration, A[1..i] consists of the i smallest elements originall in A.
+  . Termination: 
+ 
