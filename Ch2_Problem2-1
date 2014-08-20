@@ -1,8 +1,10 @@
 Ch2_P2-1
-Insertion sort on small arrays in merge sort. Consider a modification to merge sort in which n/k sublists of length k are sorted using insertion sort and then merged using the standard merging mechanism, where k is a value to be determined.
+Insertion sort on small arrays in merge sort. Consider a modification to merge sort in which n/k sublists of length k
+are sorted using insertion sort and then merged using the standard merging mechanism, where k is a value to be determined.
 a. Show that n/k sublists, can be sorted by insertion sort in O(nk) worst-case time.
 Ans:
-The length of each sublist is k, so the running time of each sublist is O(k^2) by insertion-sort. Then the worse-case running time of n/k sublists is n/k*O(k^2) = O(nk).
+The length of each sublist is k, so the running time of each sublist is O(k^2) by insertion-sort. Then the worse-case
+running time of n/k sublists is n/k*O(k^2) = O(nk).
 
 
 b.Show that sublists can be merged in O(nlg(n/k)) worst-case time.
@@ -18,7 +20,8 @@ Merge-Sublists(A, n, k, p, r)
 	Merge(A, p, r)
 	
 	
-Following the merge-sort analysis, T(m) = {2T(m/2) + O(mk), m > 1;  0, m = 1}, and O(mk) is the running time of merging m sublists, each of length k.
+Following the merge-sort analysis, T(m) = {2T(m/2) + O(mk), m > 1;  0, m = 1}, and O(mk) is the running time of merging
+m sublists, each of length k.
 We guess T(m) = mklgm.
 Using induction, 
 Base: T(1) = klg1 = 0, true.
